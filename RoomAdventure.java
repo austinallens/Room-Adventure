@@ -116,6 +116,8 @@ class RoomAdventure {
     private static void setupGame(){
         Room room1 = new Room("Room 1"); // instantiation of an object
         Room room2 = new Room("Room 2");
+        Room room3 = new Room("Room 3");
+        Room room4 = new Room("Room 4");
 
         // Room 1
         String[] room1ExitDirections = {"east", "south"}; // declaring an array
@@ -149,6 +151,36 @@ class RoomAdventure {
         room2.setItems(room2Items);
         room2.setItemDescriptions(room2ItemDescriptions);
         room2.setGrabbables(room2Grabbables);
+
+        // Room 3
+        String[] room3ExitDirections = {"north", "east"};
+        Room[]   room3ExitDestinations = {room1, room4};
+        String[] room3Items = {"", ""};
+        String[] room3ItemDescriptions = {
+            "", 
+            ""
+        };
+        String[] room3Grabbables = {""};
+        room3.setExitDirections(room3ExitDirections);
+        room3.setExitDestinations(room3ExitDestinations);
+        room3.setItems(room3Items);
+        room3.setItemDescriptions(room3ItemDescriptions);
+        room3.setGrabbables(room3Grabbables);
+
+        // Room 4
+        String[] room4ExitDirections = {"west", "north"};
+        Room[]   room4ExitDestinations = {room3, room2};
+        String[] room4Items = {"", ""};
+        String[] room4ItemDescriptions = {
+            "", 
+            ""
+        };
+        String[] room4Grabbables = {""};
+        room4.setExitDirections(room4ExitDirections);
+        room4.setExitDestinations(room4ExitDestinations);
+        room4.setItems(room4Items);
+        room4.setItemDescriptions(room4ItemDescriptions);
+        room4.setGrabbables(room4Grabbables);
 
         currentRoom = room1;
     }
