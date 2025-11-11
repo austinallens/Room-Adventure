@@ -119,31 +119,30 @@ class RoomAdventure {
         Room room3 = new Room("Room 3");
         Room room4 = new Room("Room 4");
 
-        // Room 1
+        // Room 1 - Bedroom
         String[] room1ExitDirections = {"east", "south"}; // declaring an array
         Room[]   room1ExitDestinations = {room2};
-
-        String[] room1Items = {"chair", "desk"};
+        String[] room1Items = {"chair", "desk", "bed"};
         String[] room1ItemDescriptions = {
             "It is a chair", 
-            "Its a desk, there is a key on it."
+            "Its a desk, there is a key on it.",
+            "Its the bed you awoke on top of."
         };
-
         String[] room1Grabbables = {"key"};
-
         room1.setExitDirections(room1ExitDirections);
         room1.setExitDestinations(room1ExitDestinations);
         room1.setItems(room1Items);
         room1.setItemDescriptions(room1ItemDescriptions);
         room1.setGrabbables(room1Grabbables);
 
-        // Room 2
+        // Room 2 - Living Room
         String[] room2ExitDirections = {"west"};
         Room[]   room2ExitDestinations = {room1};
-        String[] room2Items = {"fireplace", "rug"};
+        String[] room2Items = {"fireplace", "rug", "couch"};
         String[] room2ItemDescriptions = {
             "Its on fire", 
-            "There is a lump of coal on the rug."
+            "There is a lump of coal on the rug.",
+            "The faux leather on the coach is peeling leaving behind little brown flecks that are annoying to clean."
         };
         String[] room2Grabbables = {"coal"};
         room2.setExitDirections(room2ExitDirections);
@@ -152,13 +151,13 @@ class RoomAdventure {
         room2.setItemDescriptions(room2ItemDescriptions);
         room2.setGrabbables(room2Grabbables);
 
-        // Room 3
+        // Room 3 - Bathroom
         String[] room3ExitDirections = {"north", "east"};
         Room[]   room3ExitDestinations = {room1, room4};
-        String[] room3Items = {"", ""};
+        String[] room3Items = {"toilet", "bathtub"};
         String[] room3ItemDescriptions = {
-            "", 
-            ""
+            "The most average and generic porcelain throne imaginable.", 
+            "This bathtub has not been cleaned in at least a month. The reason you know this is unknown."
         };
         String[] room3Grabbables = {""};
         room3.setExitDirections(room3ExitDirections);
@@ -167,15 +166,15 @@ class RoomAdventure {
         room3.setItemDescriptions(room3ItemDescriptions);
         room3.setGrabbables(room3Grabbables);
 
-        // Room 4
+        // Room 4 - Entryway
         String[] room4ExitDirections = {"west", "north"};
         Room[]   room4ExitDestinations = {room3, room2};
-        String[] room4Items = {"", ""};
+        String[] room4Items = {"door", "rack"};
         String[] room4ItemDescriptions = {
-            "", 
-            ""
+            "The door is very well made, sturdy, mahogany... and locked tight.", 
+            "There is a very fashionable tan coat hanging on the the coat rack."
         };
-        String[] room4Grabbables = {""};
+        String[] room4Grabbables = {"coat"};
         room4.setExitDirections(room4ExitDirections);
         room4.setExitDestinations(room4ExitDestinations);
         room4.setItems(room4Items);
