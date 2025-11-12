@@ -62,11 +62,13 @@ class RoomAdventure {
 
             if (words.length < 2){
                 status = DEFAULT_STATUS;
+                System.out.println(status);
+                continue;
             }
 
-            String verb = words[0];
-            String noun = words[1];
-            String noun2 = words.length > 2 ? words[2] : "";
+            String verb = words[0].toLowerCase();
+            String noun = words[1].toLowerCase();
+            String noun2 = words.length > 2 ? words[2].toLowerCase() : "";
 
             switch (verb){
                 case "go":
