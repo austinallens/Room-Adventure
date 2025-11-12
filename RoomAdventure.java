@@ -15,10 +15,31 @@ class RoomAdventure {
     public static void main(String[] args){
          
         setupGame();
+
+        // Intro
+        System.out.println("========================================");
+        System.out.println("     WELCOME TO ROOM ADVENTURE!        ");
+        System.out.println("========================================");
+        System.out.println();
+        System.out.println("You are an Outer Being who has taken over");
+        System.out.println("the body of an average salary man. Your");
+        System.out.println("goal is to leave this place and cause chaos.");
+        System.out.println("    SPREAD YOUR WINGS YOUNG ONE.");
+        System.out.println();
+        System.out.println("Commands:");
+        System.out.println("  go [direction] - move to another room");
+        System.out.println("  look [item] - examine an item");
+        System.out.println("  take [item] - pick up an item");
+        System.out.println("  use [item] [target] - use an item");
+        System.out.println();
+        System.out.println("Press Enter to begin...");
+
         Scanner s = new Scanner(System.in);
+        s.nextLine();
 
         // while loops
         while (true){
+
             // outputting
             System.out.println(currentRoom.toString());
             System.out.print("Inventory: ");
@@ -65,8 +86,30 @@ class RoomAdventure {
             
             System.out.println(status);
             
-                    
-            
+            if (coatFlag) {
+                System.out.println("You throw on the coat.");
+                System.out.println("While wearing the fashionable coat you feel a lot swankier.");
+                coatFlag = false;
+            }
+
+            if (doorFlag && currentRoom.getName().equals("Room 4")) {
+                // Outro
+                System.out.println("\n========================================");
+                System.out.println("You use the key and unlock the door...");
+                System.out.println("The door swings open with a creak.");
+                System.out.println("Sunlight floods in, nearly blinding you.");
+                System.out.println("\nYou step outside and breathe fresh air.");
+                System.out.println("You're finally free!");
+                System.out.println();
+                System.out.println("For the remainder of your years you run rampant.");
+                System.out.println("You successfully cause chaos till felled by the hero.");
+                System.out.println("========================================");
+                System.out.println("\n   CONGRATULATIONS! YOU WON!   \n");
+                System.out.println("========================================");
+
+                s.close();
+                break;
+            } 
         }
 
     }
@@ -137,10 +180,14 @@ class RoomAdventure {
         }
     
         if (grabNoun.equalsIgnoreCase("key") && itemNoun.equalsIgnoreCase("door")) {
-            status = "The door has been unlocked!";
-            doorFlag = true;
+            if (currentRoom.getName().equals("Room 4")) {
+                status = "The door has been unlocked!";
+                doorFlag = true;
+            } else {
+                status = "You point the key at the wall. Nothing happens. You don't know why you thought that would work.";
+            }
         } else if (grabNoun.equalsIgnoreCase("coat") && itemNoun.equalsIgnoreCase("self")){
-            status = "While wearing the fashionable coat you feel a lot swankier.";
+            status = "You grab the coat.";
             coatFlag = true;
         } else {
             status = "I can't use those items together.";
@@ -155,7 +202,7 @@ class RoomAdventure {
 
         // Room 1 - Bedroom
         String[] room1ExitDirections = {"east", "south"}; // declaring an array
-        Room[]   room1ExitDestinations = {room2};
+        Room[]   room1ExitDestinations = {room2, room3};
         String[] room1Items = {"chair", "desk", "bed"};
         String[] room1ItemDescriptions = {
             "It is a chair", 
@@ -170,8 +217,8 @@ class RoomAdventure {
         room1.setGrabbables(room1Grabbables);
 
         // Room 2 - Living Room
-        String[] room2ExitDirections = {"west"};
-        Room[]   room2ExitDestinations = {room1};
+        String[] room2ExitDirections = {"west", "south"};
+        Room[]   room2ExitDestinations = {room1, room4};
         String[] room2Items = {"fireplace", "rug", "couch"};
         String[] room2ItemDescriptions = {
             "Its on fire", 
@@ -275,6 +322,15 @@ class Room {
     public void setGrabbables(String[] grabbables){
         this.grabbables = grabbables;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
 
     public String toString(){
         String result = "\n";
