@@ -15,3 +15,4 @@ Based on what you type you can do various actions:
   - **Go** [ROOM] - Takes you from your current Room into a room adjacent to it.
   - **Look** [ITEM] - Allows you to investigate the items that can be found in a room.
   - **Take** [ITEM] - Allows you to take an item to add to your inventory.
+  - **Use** [ITEM1] [ITEM2] - Allows you to use one item on another item.

@@ -6,13 +6,16 @@ class RoomAdventure {
     private static Room currentRoom;
     private static String[] inventory = {null, null, null, null, null};
     private static String status;
+    private static boolean doorFlag = false;
+    private static boolean coatFlag = false;
 
 
-    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'.";
+    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', and 'use'.";
 
     public static void main(String[] args){
          
         setupGame();
+        Scanner s = new Scanner(System.in);
 
         // while loops
         while (true){
@@ -30,19 +33,19 @@ class RoomAdventure {
         
 
             // taking input
-            Scanner s = new Scanner(System.in);
             String input = s.nextLine();
             
             // .split() takes a string and turns it into an array
             // each item is the array is divided by the arg in split()
             String[] words = input.split(" ");
 
-            if (words.length != 2){
+            if (words.length < 2){
                 status = DEFAULT_STATUS;
             }
 
             String verb = words[0];
             String noun = words[1];
+            String noun2 = words.length > 2 ? words[2] : "";
 
             switch (verb){
                 case "go":
@@ -53,6 +56,9 @@ class RoomAdventure {
                     break;
                 case "take":
                     handleTake(noun);
+                    break;
+                case "use":
+                    handleUse(noun, noun2);
                     break;
                 default: status = DEFAULT_STATUS;
             }
@@ -110,6 +116,34 @@ class RoomAdventure {
                 }
 
             }
+        }
+    }
+
+    private static void handleUse(String grabNoun, String itemNoun){
+        status = "I can't use that.";
+    
+        // Check if we have the item in inventory
+        boolean hasItem = false;
+        for (String item : inventory) {
+            if (grabNoun.equals(item)) {
+                hasItem = true;
+                break;
+            }
+        }
+    
+        if (!hasItem) {
+            status = "I don't have one of those.";
+            return;
+        }
+    
+        if (grabNoun.equalsIgnoreCase("key") && itemNoun.equalsIgnoreCase("door")) {
+            status = "The door has been unlocked!";
+            doorFlag = true;
+        } else if (grabNoun.equalsIgnoreCase("coat") && itemNoun.equalsIgnoreCase("self")){
+            status = "While wearing the fashionable coat you feel a lot swankier.";
+            coatFlag = true;
+        } else {
+            status = "I can't use those items together.";
         }
     }
 
