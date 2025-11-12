@@ -6,11 +6,9 @@ class RoomAdventure {
     private static Room currentRoom;
     private static String[] inventory = {null, null, null, null, null};
     private static String status;
-    private static boolean doorFlag = false;
-    private static boolean coatFlag = false;
 
 
-    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', and 'use'.";
+    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'.";
 
     public static void main(String[] args){
          
@@ -39,15 +37,12 @@ class RoomAdventure {
             // each item is the array is divided by the arg in split()
             String[] words = input.split(" ");
 
-            if (words.length < 2){
+            if (words.length != 2){
                 status = DEFAULT_STATUS;
-                System.out.println(status);
-                continue;
             }
 
             String verb = words[0];
             String noun = words[1];
-            String noun2 = words.length > 2 ? words[2] : "";
 
             switch (verb){
                 case "go":
@@ -58,9 +53,6 @@ class RoomAdventure {
                     break;
                 case "take":
                     handleTake(noun);
-                    break;
-                case "use":
-                    handleUse(noun, noun2);
                     break;
                 default: status = DEFAULT_STATUS;
             }
@@ -121,62 +113,36 @@ class RoomAdventure {
         }
     }
 
-    private static void handleUse(String grabNoun, String itemNoun){
-        status = "I can't use that.";
-
-        boolean hasItem = false;
-        for (String item : inventory) {
-            if (grabNoun.equals(item)) {
-                hasItem = true;
-                break;
-            }
-        }
-
-        if (!hasItem) {
-            status = "I don't have that item.";
-            return;
-        }
-
-        if (grabNoun.equalsIgnoreCase("key") && itemNoun.equalsIgnoreCase("door")) {
-            System.out.println("The door has been unlocked!");
-            doorFlag = true;
-        } else if (grabNoun.equalsIgnoreCase("coat") && itemNoun.equalsIgnoreCase("self")){
-            System.out.println("While wearing the fashionable coat you feel a lot swankier.");
-            coatFlag = true;
-        } else {
-            status = "I can't use those together.";
-        }
-     }
-
     private static void setupGame(){
         Room room1 = new Room("Room 1"); // instantiation of an object
         Room room2 = new Room("Room 2");
+        Room room3 = new Room("Room 3");
+        Room room4 = new Room("Room 4");
 
-        // Room 1
+        // Room 1 - Bedroom
         String[] room1ExitDirections = {"east", "south"}; // declaring an array
         Room[]   room1ExitDestinations = {room2};
-
-        String[] room1Items = {"chair", "desk"};
+        String[] room1Items = {"chair", "desk", "bed"};
         String[] room1ItemDescriptions = {
             "It is a chair", 
-            "Its a desk, there is a key on it."
+            "Its a desk, there is a key on it.",
+            "Its the bed you awoke on top of."
         };
-
         String[] room1Grabbables = {"key"};
-
         room1.setExitDirections(room1ExitDirections);
         room1.setExitDestinations(room1ExitDestinations);
         room1.setItems(room1Items);
         room1.setItemDescriptions(room1ItemDescriptions);
         room1.setGrabbables(room1Grabbables);
 
-        // Room 2
+        // Room 2 - Living Room
         String[] room2ExitDirections = {"west"};
         Room[]   room2ExitDestinations = {room1};
-        String[] room2Items = {"fireplace", "rug"};
+        String[] room2Items = {"fireplace", "rug", "couch"};
         String[] room2ItemDescriptions = {
             "Its on fire", 
-            "There is a lump of coal on the rug."
+            "There is a lump of coal on the rug.",
+            "The faux leather on the coach is peeling leaving behind little brown flecks that are annoying to clean."
         };
         String[] room2Grabbables = {"coal"};
         room2.setExitDirections(room2ExitDirections);
@@ -184,6 +150,36 @@ class RoomAdventure {
         room2.setItems(room2Items);
         room2.setItemDescriptions(room2ItemDescriptions);
         room2.setGrabbables(room2Grabbables);
+
+        // Room 3 - Bathroom
+        String[] room3ExitDirections = {"north", "east"};
+        Room[]   room3ExitDestinations = {room1, room4};
+        String[] room3Items = {"toilet", "bathtub"};
+        String[] room3ItemDescriptions = {
+            "The most average and generic porcelain throne imaginable.", 
+            "This bathtub has not been cleaned in at least a month. The reason you know this is unknown."
+        };
+        String[] room3Grabbables = {""};
+        room3.setExitDirections(room3ExitDirections);
+        room3.setExitDestinations(room3ExitDestinations);
+        room3.setItems(room3Items);
+        room3.setItemDescriptions(room3ItemDescriptions);
+        room3.setGrabbables(room3Grabbables);
+
+        // Room 4 - Entryway
+        String[] room4ExitDirections = {"west", "north"};
+        Room[]   room4ExitDestinations = {room3, room2};
+        String[] room4Items = {"door", "rack"};
+        String[] room4ItemDescriptions = {
+            "The door is very well made, sturdy, mahogany... and locked tight.", 
+            "There is a very fashionable tan coat hanging on the the coat rack."
+        };
+        String[] room4Grabbables = {"coat"};
+        room4.setExitDirections(room4ExitDirections);
+        room4.setExitDestinations(room4ExitDestinations);
+        room4.setItems(room4Items);
+        room4.setItemDescriptions(room4ItemDescriptions);
+        room4.setGrabbables(room4Grabbables);
 
         currentRoom = room1;
     }
